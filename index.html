@@ -35,7 +35,7 @@
             <p class="text-blue-800 font-medium">⚠️ คำชี้แจง: เอกสารนี้ใช้สำหรับแนบ ป01 กรณีที่ได้เปลี่ยนงบประมาณ ป02 มาแล้ว</p>
         </div>
 
-        <div id="notify" class="hidden fixed top-4 right-4 bg-green-500 text-white p-4 rounded-lg shadow-lg z-50"></div>
+        <div id="notify" class="hidden fixed top-4 right-4 bg-green-500 text-white p-4 rounded-lg shadow-lg z-50 transition-opacity duration-300"></div>
 
         <div id="form-container" class="space-y-6">
             <div class="overflow-x-auto">
@@ -55,28 +55,60 @@
                     <tfoot id="tableFooter">
                         <tr class="bg-gray-100">
                             <td colspan="4" class="border p-2 text-right font-bold">รวมเป็นเงินทั้งสิ้น</td>
-                            <td class="border p-2 text-right font-bold" id="finalSum">0.00</td>
+                            <td class="border p-2 text-right font-bold text-blue-700" id="finalSum">0.00</td>
                             <td class="border p-2"></td>
                         </tr>
                     </tfoot>
                 </table>
-                <button onclick="addRow()" class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">+ เพิ่มรายการ</button>
+                <button onclick="addRow()" class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition shadow-sm font-semibold">+ เพิ่มรายการ</button>
             </div>
 
+            <!-- คณะกรรมการกำหนดรายละเอียดคุณลักษณะเฉพาะพัสดุและกำหนดราคากลาง -->
             <div class="border-t pt-6 mt-6">
-                <h3 class="font-semibold text-lg mb-4 text-blue-900">ข้อมูลคณะกรรมการ</h3>
+                <h3 class="font-semibold text-lg mb-4 text-blue-900">คณะกรรมการกำหนดรายละเอียดคุณลักษณะเฉพาะพัสดุและกำหนดราคากลาง</h3>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <input type="text" id="com1" placeholder="ชื่อประธานกรรมการ" class="input-field" required>
-                    <input type="text" id="com2" placeholder="ชื่อกรรมการ" class="input-field" required>
-                    <input type="text" id="com3" placeholder="ชื่อกรรมการ" class="input-field" required>
+                    <div>
+                        <label class="block text-sm text-gray-600 mb-1">ประธานกรรมการ</label>
+                        <input type="text" id="spec_com1" placeholder="ชื่อประธานกรรมการ" class="input-field" required>
+                    </div>
+                    <div>
+                        <label class="block text-sm text-gray-600 mb-1">กรรมการ (1)</label>
+                        <input type="text" id="spec_com2" placeholder="ชื่อกรรมการ" class="input-field" required>
+                    </div>
+                    <div>
+                        <label class="block text-sm text-gray-600 mb-1">กรรมการ (2)</label>
+                        <input type="text" id="spec_com3" placeholder="ชื่อกรรมการ" class="input-field" required>
+                    </div>
                 </div>
             </div>
 
-            <div class="text-center pt-6 flex gap-4 justify-center">
-                <button onclick="saveData()" class="bg-gray-600 text-white px-8 py-3 rounded-lg font-bold hover:bg-gray-700 transition shadow-lg">
+            <!-- คณะกรรมการตรวจรับพัสดุ -->
+            <div class="border-t pt-6 mt-6">
+                <h3 class="font-semibold text-lg mb-4 text-blue-900">คณะกรรมการตรวจรับพัสดุ</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                        <label class="block text-sm text-gray-600 mb-1">ประธานกรรมการ</label>
+                        <input type="text" id="com1" placeholder="ชื่อประธานกรรมการ" class="input-field" required>
+                    </div>
+                    <div>
+                        <label class="block text-sm text-gray-600 mb-1">กรรมการ (1)</label>
+                        <input type="text" id="com2" placeholder="ชื่อกรรมการ" class="input-field" required>
+                    </div>
+                    <div>
+                        <label class="block text-sm text-gray-600 mb-1">กรรมการ (2)</label>
+                        <input type="text" id="com3" placeholder="ชื่อกรรมการ" class="input-field" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center pt-6 flex flex-wrap gap-4 justify-center">
+                <button onclick="saveData()" class="bg-gray-600 text-white px-8 py-3 rounded-lg font-bold hover:bg-gray-700 transition shadow-lg w-full md:w-auto">
                     บันทึกข้อมูล
                 </button>
-                <button onclick="exportToWord()" class="bg-green-600 text-white px-8 py-3 rounded-lg font-bold text-lg hover:bg-green-700 transition shadow-lg">
+                <button onclick="exportToWord()" class="bg-green-600 text-white px-8 py-3 rounded-lg font-bold hover:bg-green-700 transition shadow-lg w-full md:w-auto flex items-center justify-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+                    </svg>
                     ดาวน์โหลดไฟล์ Word
                 </button>
             </div>
@@ -89,11 +121,25 @@
         window.onload = () => {
             const savedData = localStorage.getItem('budgetData');
             if (savedData) {
-                const data = JSON.parse(savedData);
-                data.rows.forEach(item => addRow(item));
-                document.getElementById('com1').value = data.com1 || '';
-                document.getElementById('com2').value = data.com2 || '';
-                document.getElementById('com3').value = data.com3 || '';
+                try {
+                    const data = JSON.parse(savedData);
+                    if (data.rows && data.rows.length > 0) {
+                        data.rows.forEach(item => addRow(item));
+                    } else {
+                        addRow();
+                    }
+                    // โหลดข้อมูลคณะกรรมการตรวจรับพัสดุ
+                    document.getElementById('com1').value = data.com1 || '';
+                    document.getElementById('com2').value = data.com2 || '';
+                    document.getElementById('com3').value = data.com3 || '';
+                    // โหลดข้อมูลคณะกรรมการกำหนดรายละเอียดฯ
+                    document.getElementById('spec_com1').value = data.spec_com1 || '';
+                    document.getElementById('spec_com2').value = data.spec_com2 || '';
+                    document.getElementById('spec_com3').value = data.spec_com3 || '';
+                } catch (e) {
+                    console.error("Error loading saved data", e);
+                    addRow();
+                }
             } else {
                 addRow();
             }
@@ -109,7 +155,7 @@
                 <td class="border p-2"><input type="number" class="input-field unit-price" value="${data.price || ''}" oninput="calculate()" placeholder="0.00"></td>
                 <td class="border p-2"><input type="number" class="input-field quantity" value="${data.qty || ''}" oninput="calculate()" placeholder="0"></td>
                 <td class="border p-2 text-right font-bold total-row">0.00</td>
-                <td class="border p-2 text-center"><button onclick="removeRow(this)" class="text-red-500 hover:text-red-700">ลบ</button></td>
+                <td class="border p-2 text-center"><button onclick="removeRow(this)" class="text-red-500 hover:text-red-700 bg-red-50 px-2 py-1 rounded transition">ลบ</button></td>
             `;
             tbody.appendChild(row);
             calculate();
@@ -138,71 +184,81 @@
                 const price = parseFloat(row.querySelector('.unit-price').value) || 0;
                 const qty = parseFloat(row.querySelector('.quantity').value) || 0;
                 const total = price * qty;
-                row.querySelector('.total-row').innerText = total.toLocaleString(undefined, {minimumFractionDigits: 2});
+                row.querySelector('.total-row').innerText = total.toLocaleString('th-TH', {minimumFractionDigits: 2, maximumFractionDigits: 2});
                 grandTotal += total;
             });
             
-            document.getElementById('finalSum').innerText = grandTotal.toLocaleString(undefined, {minimumFractionDigits: 2});
+            document.getElementById('finalSum').innerText = grandTotal.toLocaleString('th-TH', {minimumFractionDigits: 2, maximumFractionDigits: 2});
         }
 
-        function showNotify(msg) {
+        function showNotify(msg, isError = false) {
             const n = document.getElementById('notify');
             n.innerText = msg;
+            n.className = `fixed top-4 right-4 text-white p-4 rounded-lg shadow-lg z-50 transition-opacity duration-300 ${isError ? 'bg-red-500' : 'bg-green-500'}`;
             n.classList.remove('hidden');
             setTimeout(() => n.classList.add('hidden'), 3000);
         }
 
         function saveData() {
-            const com1 = document.getElementById('com1').value;
-            const com2 = document.getElementById('com2').value;
-            const com3 = document.getElementById('com3').value;
+            const com1 = document.getElementById('com1').value.trim();
+            const com2 = document.getElementById('com2').value.trim();
+            const com3 = document.getElementById('com3').value.trim();
 
-            if(!com1 || !com2 || !com3) {
-                showNotify('กรุณากรอกชื่อคณะกรรมการให้ครบทุกช่อง');
-                return;
-            }
+            const spec_com1 = document.getElementById('spec_com1').value.trim();
+            const spec_com2 = document.getElementById('spec_com2').value.trim();
+            const spec_com3 = document.getElementById('spec_com3').value.trim();
 
             const rows = [];
             document.querySelectorAll('#tableBody tr').forEach(row => {
-                rows.push({
-                    desc: row.querySelector('.item-desc').value,
-                    price: row.querySelector('.unit-price').value,
-                    qty: row.querySelector('.quantity').value
-                });
+                const desc = row.querySelector('.item-desc').value.trim();
+                const price = row.querySelector('.unit-price').value;
+                const qty = row.querySelector('.quantity').value;
+                if (desc || price || qty) {
+                    rows.push({ desc, price, qty });
+                }
             });
+
             const data = {
-                rows,
-                com1, com2, com3
+                rows: rows.length > 0 ? rows : [{}], 
+                com1, com2, com3,
+                spec_com1, spec_com2, spec_com3
             };
+            
             localStorage.setItem('budgetData', JSON.stringify(data));
             showNotify('บันทึกข้อมูลเรียบร้อยแล้ว');
         }
 
         function exportToWord() {
-            const com1 = document.getElementById('com1').value;
-            const com2 = document.getElementById('com2').value;
-            const com3 = document.getElementById('com3').value;
+            const com1 = document.getElementById('com1').value.trim();
+            const com2 = document.getElementById('com2').value.trim();
+            const com3 = document.getElementById('com3').value.trim();
 
-            if (!com1 || !com2 || !com3) {
-                showNotify('กรุณากรอกชื่อคณะกรรมการให้ครบถ้วนก่อนดาวน์โหลด');
+            const spec_com1 = document.getElementById('spec_com1').value.trim();
+            const spec_com2 = document.getElementById('spec_com2').value.trim();
+            const spec_com3 = document.getElementById('spec_com3').value.trim();
+
+            if (!com1 || !com2 || !com3 || !spec_com1 || !spec_com2 || !spec_com3) {
+                showNotify('กรุณากรอกชื่อคณะกรรมการให้ครบทั้ง 2 ชุด ก่อนดาวน์โหลด', true);
                 return;
             }
 
             const rows = document.querySelectorAll('#tableBody tr');
             let tableRowsHTML = '';
             rows.forEach((row, index) => {
-                const desc = row.querySelector('.item-desc').value;
-                const price = row.querySelector('.unit-price').value;
-                const qty = row.querySelector('.quantity').value;
+                const desc = row.querySelector('.item-desc').value || '-';
+                const priceVal = parseFloat(row.querySelector('.unit-price').value) || 0;
+                const qtyVal = parseFloat(row.querySelector('.quantity').value) || 0;
+                const price = priceVal ? priceVal.toLocaleString('th-TH', {minimumFractionDigits: 2}) : '-';
+                const qty = qtyVal ? qtyVal.toLocaleString('th-TH') : '-';
                 const total = row.querySelector('.total-row').innerText;
                 
                 tableRowsHTML += `
                     <tr>
                         <td style="border: 1px solid black; padding: 5px; text-align: center;">${index + 1}</td>
                         <td style="border: 1px solid black; padding: 5px; text-align: left;">${desc}</td>
-                        <td style="border: 1px solid black; padding: 5px; text-align: left;">${price}</td>
-                        <td style="border: 1px solid black; padding: 5px; text-align: left;">${qty}</td>
-                        <td style="border: 1px solid black; padding: 5px; text-align: left;">${total}</td>
+                        <td style="border: 1px solid black; padding: 5px; text-align: right;">${price}</td>
+                        <td style="border: 1px solid black; padding: 5px; text-align: center;">${qty}</td>
+                        <td style="border: 1px solid black; padding: 5px; text-align: right;">${total}</td>
                     </tr>
                 `;
             });
@@ -213,49 +269,57 @@
                 <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
                 <head><meta charset='utf-8'><title>Export</title>
                 <style>
-                    body { font-family: 'TH Sarabun New', sans-serif; font-size: 16pt; margin: 0; padding: 0; }
+                    body { font-family: 'TH SarabunPSK', 'TH Sarabun New', sans-serif; font-size: 16pt; margin: 0; padding: 0; }
                     p { margin: 0; padding: 0; line-height: 1.2; }
-                    table { border-collapse: collapse; width: 100%; }
-                    th { border: 1px solid black; padding: 5px; text-align: center; }
+                    table { border-collapse: collapse; width: 100%; margin-top: 15px; margin-bottom: 15px; }
+                    th { border: 1px solid black; padding: 5px; text-align: center; background-color: #f3f4f6; }
                     td { border: 1px solid black; padding: 5px; }
                 </style>
                 </head>
                 <body>
-                    <h2 style="text-align:center; font-family: 'TH Sarabun New', sans-serif; font-size: 16pt;">รายละเอียดการเบิกงบประมาณ</h2>
+                    <h2 style="text-align:center; font-family: 'TH SarabunPSK', 'TH Sarabun New', sans-serif; font-size: 18pt; font-weight: bold;">รายละเอียดการเบิกงบประมาณ</h2>
                     <table>
                         <thead>
-                            <tr style="background-color: #f3f4f6;">
-                                <th style="text-align:center;">ที่</th>
-                                <th style="text-align:center;">รายการ</th>
-                                <th style="text-align:center;">ราคา/หน่วย</th>
-                                <th style="text-align:center;">จำนวน</th>
-                                <th style="text-align:center;">รวมเป็นเงิน</th>
+                            <tr>
+                                <th style="width: 5%;">ที่</th>
+                                <th style="width: 45%;">รายการ</th>
+                                <th style="width: 15%;">ราคา/หน่วย</th>
+                                <th style="width: 15%;">จำนวน</th>
+                                <th style="width: 20%;">รวมเป็นเงิน</th>
                             </tr>
                         </thead>
                         <tbody>${tableRowsHTML}</tbody>
                         <tfoot>
                             <tr>
-                                <td colspan="4" style="text-align:right; font-weight:bold;">รวมเป็นเงินทั้งสิ้น</td>
-                                <td style="text-align:left; font-weight:bold;">${finalSum}</td>
+                                <td colspan="4" style="text-align:right; font-weight:bold; border: 1px solid black; padding: 5px;">รวมเป็นเงินทั้งสิ้น</td>
+                                <td style="text-align:right; font-weight:bold; border: 1px solid black; padding: 5px;">${finalSum}</td>
                             </tr>
                         </tfoot>
                     </table>
 
-                    <div style="margin-top:20px; font-family: 'TH Sarabun New', sans-serif; font-size: 16pt;">
-                        <p><strong>คณะกรรมการตรวจรับ:</strong></p>
-                        <p>1. ${com1} ประธานกรรมการ</p>
-                        <p>2. ${com2} กรรมการ</p>
-                        <p>3. ${com3} กรรมการ</p>
+                    <div style="margin-top:20px; font-family: 'TH SarabunPSK', 'TH Sarabun New', sans-serif; font-size: 16pt;">
+                        <p><strong>คณะกรรมการกำหนดรายละเอียดคุณลักษณะเฉพาะพัสดุและกำหนดราคากลาง:</strong></p>
+                        <p style="padding-left: 20px;">1. ${spec_com1} ประธานกรรมการ</p>
+                        <p style="padding-left: 20px;">2. ${spec_com2} กรรมการ</p>
+                        <p style="padding-left: 20px;">3. ${spec_com3} กรรมการ</p>
                     </div>
 
-                    <div style="margin-top:30px; border-top:1px solid #000; padding-top:10px; font-family: 'TH Sarabun New', sans-serif; font-size: 16pt;">
-                        <p><strong>รายการตรวจสอบจากงานพัสดุ</strong></p>
+                    <div style="margin-top:15px; font-family: 'TH SarabunPSK', 'TH Sarabun New', sans-serif; font-size: 16pt;">
+                        <p><strong>คณะกรรมการตรวจรับพัสดุ:</strong></p>
+                        <p style="padding-left: 20px;">1. ${com1} ประธานกรรมการ</p>
+                        <p style="padding-left: 20px;">2. ${com2} กรรมการ</p>
+                        <p style="padding-left: 20px;">3. ${com3} กรรมการ</p>
+                    </div>
+
+                    <div style="margin-top:30px; border-top:1px solid #000; padding-top:15px; font-family: 'TH SarabunPSK', 'TH Sarabun New', sans-serif; font-size: 16pt;">
+                        <p style="font-weight: bold; margin-bottom: 10px;">รายการตรวจสอบจากงานพัสดุ</p>
                         <p>รวมเสนอขอใช้งบ ................................................................ บาท</p>
-                        <p>รวมใช้จ่ายจริง ................................................................ บาท</p>
-                        <p>เกินจากการเสนอขอใช้ ..................................................... บาท</p>
-                        <p>เหลือจากการเสนอขอใช้ .................................................... บาท</p>
-                        <p style="margin-top:20px;">ลงชื่อ................................................... เจ้าหน้าที่งานพัสดุโรงเรียน</p>
-                        <p>(...................................................)</p>
+                        <p>รวมใช้จ่ายจริง ..................................................................... บาท</p>
+                        <p>เกินจากการเสนอขอใช้ ......................................................... บาท</p>
+                        <p>เหลือจากการเสนอขอใช้ ...................................................... บาท</p>
+                        <br>
+                        <p style="text-align: right; margin-top:20px;">ลงชื่อ................................................... เจ้าหน้าที่งานพัสดุโรงเรียน</p>
+                        <p style="text-align: right;">(...................................................)</p>
                     </div>
                 </body>
                 </html>
@@ -266,7 +330,12 @@
             const a = document.createElement('a');
             a.href = url;
             a.download = 'budget-report.doc';
+            document.body.appendChild(a);
             a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            showNotify('ดาวน์โหลดเอกสาร Word เรียบร้อยแล้ว');
         }
     </script>
 </body>
